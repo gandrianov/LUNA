@@ -24,7 +24,7 @@ import numpy
 import warnings
 
 from Bio.File import as_handle
-from Bio._py3k import range
+# from Bio._py3k import range
 
 # MODBY: Alexandre Fassio
 # Inherit inhouse modifications. Package: MyBio.

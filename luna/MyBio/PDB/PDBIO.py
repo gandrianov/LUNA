@@ -18,7 +18,7 @@
 
 """Output of PDB files."""
 
-from Bio._py3k import basestring
+# from Bio._py3k import basestring
 
 # MODBY: Alexandre Fassio
 # Inherit inhouse modifications. Package: MyBio.
@@ -239,7 +239,7 @@ class PDBIO(object):
         Typically select is a subclass of L{Select}.
         """
         get_atom_line = self._get_atom_line
-        if isinstance(file, basestring):
+        if isinstance(file, str):
             fp = open(file, "w")
             close_file = 1
         else:

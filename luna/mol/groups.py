@@ -6,7 +6,8 @@ import numpy as np
 import networkx as nx
 from networkx.algorithms.shortest_paths.weighted import single_source_dijkstra
 
-from Bio.KDTree import KDTree
+# from Bio.KDTree import KDTree
+from Bio.PDB.kdtrees import KDTree
 
 from luna.MyBio.selector import Selector, AtomSelector
 from luna.MyBio.util import biopython_entity_to_mol
@@ -1037,6 +1038,7 @@ class AtomGroupPerceiver():
         # Assign properties for ligands provided as external MOL files.
         for comp, mol_obj in new_mol_objs_dict.items():
             target_atoms = self._get_atoms(comp)
+            target_atoms = [a for a in target_atoms if a.element != "H"]
             self._assign_properties(mol_obj, target_atoms)
 
         # Assign properties for molecules from PDB files.
@@ -1451,11 +1453,11 @@ class AtomGroupNeighborhood:
         coord_list = [ga.centroid for ga in self.atm_grps]
 
         # to Nx3 array of type float
-        self.coords = np.array(coord_list).astype("f")
+        self.coords = np.array(coord_list).astype(np.float64)
         assert(bucket_size > 1)
         assert(self.coords.shape[1] == 3)
-        self.kdt = KDTree(3, bucket_size)
-        self.kdt.set_coords(self.coords)
+        self.kdt = KDTree(self.coords, bucket_size)
+        # self.kdt.set_coords(self.coords)
 
     def search(self, center, radius):
         """Return all atom groups in ``atm_grps`` that is up to a maximum of
@@ -1464,12 +1466,11 @@ class AtomGroupNeighborhood:
         For atom groups with more than one atom, their centroid is used as a
         reference.
         """
-        self.kdt.search(center, radius)
-        indices = self.kdt.get_indices()
+        indices = self.kdt.search(np.array(center).astype(np.float64), radius) # self.kdt.get_indices()
         n_grps_list = []
         atm_grps = self.atm_grps
         for i in indices:
-            a = atm_grps[i]
+            a = atm_grps[i.index]
             n_grps_list.append(a)
 
         return n_grps_list

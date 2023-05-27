@@ -62,11 +62,11 @@ last residues) have been shown as M (methionine) by the get_sequence method.
 """
 
 from __future__ import print_function
-from Bio._py3k import basestring
+# from Bio._py3k import basestring
 
 import warnings
 
-from Bio.Alphabet import generic_protein
+# from Bio.Alphabet import generic_protein
 from Bio.Data import SCOPData
 from Bio.Seq import Seq
 

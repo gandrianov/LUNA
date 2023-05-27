@@ -22,7 +22,8 @@ from __future__ import print_function
 
 import numpy
 
-from Bio.KDTree import KDTree
+# from Bio.KDTree import KDTree
+from Bio.PDB.kdtrees import KDTree
 
 # MODBY: Alexandre Fassio
 # Inherit inhouse modifications. Package: MyBio.
@@ -57,11 +58,11 @@ class NeighborSearch(object):
         # get the coordinates
         coord_list = [a.get_coord() for a in atom_list]
         # to Nx3 array of type float
-        self.coords = numpy.array(coord_list).astype("f")
+        self.coords = numpy.array(coord_list).astype(numpy.float64)
         assert(bucket_size > 1)
         assert(self.coords.shape[1] == 3)
-        self.kdt = KDTree(3, bucket_size)
-        self.kdt.set_coords(self.coords)
+        self.kdt = KDTree(self.coords, bucket_size)
+        # self.kdt.set_coords(self.coords)
 
     # Private
 
@@ -102,12 +103,12 @@ class NeighborSearch(object):
         """
         if level not in entity_levels:
             raise PDBException("%s: Unknown level" % level)
-        self.kdt.search(center, radius)
-        indices = self.kdt.get_indices()
+        indices = self.kdt.search(numpy.array(center).astype(numpy.float64), radius) 
+        # indices = self.kdt.get_indices()
         n_atom_list = []
         atom_list = self.atom_list
         for i in indices:
-            a = atom_list[i]
+            a = atom_list[i.index]
             n_atom_list.append(a)
         if level == "A":
             return n_atom_list
