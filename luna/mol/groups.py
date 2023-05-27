@@ -996,8 +996,8 @@ class AtomGroupPerceiver():
             comp = comp_queue.pop()
 
             # Skip molecules provided as a molecular object.
-            if comp.id in mol_objs_dict:
-                new_mol_objs_dict[comp] = mol_objs_dict[comp.id]
+            if comp.full_id in mol_objs_dict:
+                new_mol_objs_dict[comp] = mol_objs_dict[comp.full_id]
                 continue
 
             # Add this compound to the binding site set.
