@@ -95,7 +95,6 @@ setup(
         'Bug Reports': 'https://github.com/keiserlab/LUNA/issues',
         'Source': 'https://github.com/keiserlab/LUNA/',
     },
-    download_url='https://github.com/keiserlab/LUNA/tarball/v' + version,
     tests_require=test_requirements,
 
     entry_points={
