@@ -96,7 +96,7 @@ setup(
         'Source': 'https://github.com/keiserlab/LUNA/',
     },
     tests_require=test_requirements,
-    download_url='https://github.com/keiserlab/LUNA/tarball/v' + version,
+    download_url='https://github.com/keiserlab/LUNA/tarball/v0.13.0',
     entry_points={
         'console_scripts': [
             'run_luna = luna.run:main'
