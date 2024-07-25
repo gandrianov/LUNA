@@ -25,7 +25,7 @@ https://github.com/keiserlab/LUNA/issues
 """
 
 from setuptools import setup, find_packages
-from luna.version import version
+# from luna.version import version
 
 
 __author__ = "Alexandre Fassio"
@@ -74,7 +74,7 @@ classifiers = ['Programming Language :: Python',
 
 setup(
     name='luna',
-    version=version,
+    version="0.13.0",
     packages=find_packages(exclude=['docs', 'tests']),
     python_requires='>=3.7, <4',
     install_requires=requirements,
